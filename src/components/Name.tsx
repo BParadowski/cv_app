@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import type { CvProps } from "../App";
 
-export function Name({ cv, changeCv }: CvProps) {
+export function Field({ cv, changeCv, field, className }: CvProps) {
   const [edition, toggleEdition] = useState(false);
 
   function updateCv(e: React.ChangeEvent<HTMLInputElement>) {
     changeCv({
       ...cv,
-      name: e.target.value,
+      [field]: e.target.value,
     });
   }
 
@@ -21,16 +21,16 @@ export function Name({ cv, changeCv }: CvProps) {
 
   if (edition === false) {
     return (
-      <div>
-        <h1 onClick={editionOn}>{cv.name || "Name"}</h1>
+      <div className={className || ""}>
+        <h1 onClick={editionOn}>{cv[field] || field}</h1>
       </div>
     );
   } else {
     return (
-      <div>
+      <div className={className || ""}>
         <input
-          value={cv.name}
-          placeholder="Name"
+          value={cv[field]}
+          placeholder={field}
           onChange={updateCv}
           onBlur={editionOff}
           autoFocus

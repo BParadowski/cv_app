@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Name } from "./components/Name";
+import { Field } from "./components/Name";
 
 export interface CuriculumVitae {
+  [key: string]: string;
   name: string;
   surname: string;
 }
@@ -10,16 +11,23 @@ export interface CuriculumVitae {
 export interface CvProps {
   cv: CuriculumVitae;
   changeCv: React.Dispatch<React.SetStateAction<CuriculumVitae>>;
+  field: string;
+  className?: string;
 }
 
 function App() {
-  const [cv, changeCv] = useState({
+  const [cv, changeCv]: [
+    CuriculumVitae,
+    React.Dispatch<React.SetStateAction<CuriculumVitae>>
+  ] = useState({
     name: "",
-    surname: "Gazabu",
+    surname: "",
   });
+
   return (
     <div>
-      <Name cv={cv} changeCv={changeCv} />
+      <Field field="name" cv={cv} changeCv={changeCv} className="name" />
+      <Field field="surname" cv={cv} changeCv={changeCv} />
     </div>
   );
 }
