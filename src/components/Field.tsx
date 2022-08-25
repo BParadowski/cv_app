@@ -4,37 +4,38 @@ import type { CvProps } from "../App";
 export function Field({ cv, changeCv, field, className }: CvProps) {
   const [edition, toggleEdition] = useState(false);
 
-  function updateCv(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function updateCv(e: React.ChangeEvent<HTMLInputElement>) {
     changeCv({
       ...cv,
       [field]: e.target.value,
     });
   }
 
-  function editionOn(e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) {
+  function editionOn() {
     toggleEdition(true);
   }
 
-  function editionOff(e: React.FocusEvent<HTMLTextAreaElement, Element>) {
+  function editionOff() {
     toggleEdition(false);
   }
 
   if (edition === false) {
     return (
       <p onClick={editionOn} className={className || undefined}>
-        {cv[field] || field}
+        {(cv[field] as string) || field}
       </p>
     );
   } else {
     return (
-      <textarea
+      <input
         className={className || undefined}
-        value={cv[field]}
+        type="text"
+        value={cv[field] as string}
         placeholder={field}
         onChange={updateCv}
         onBlur={editionOff}
         autoFocus
-      ></textarea>
+      ></input>
     );
   }
 }

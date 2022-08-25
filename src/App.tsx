@@ -3,9 +3,9 @@ import "./App.scss";
 import { Field } from "./components/Field";
 
 export interface CuriculumVitae {
-  [key: string]: string;
+  [key: string]: string | object;
   name: string;
-  surname: string;
+  title: string;
 }
 
 export interface CvProps {
@@ -18,25 +18,21 @@ export interface CvProps {
 function App() {
   const [cv, changeCv] = useState<CuriculumVitae>({
     name: "",
-    surname: "",
+    title: "",
   });
 
   return (
     <div className="cv">
       <div className="header">
+        <Field field="name" cv={cv} changeCv={changeCv} className="name big" />
         <Field
-          field="name"
+          field="title"
           cv={cv}
           changeCv={changeCv}
-          className="cv__name cv__big"
-        />
-        <Field
-          field="surname"
-          cv={cv}
-          changeCv={changeCv}
-          className="cv__big"
+          className="title medium"
         />
       </div>
+      <div className="sidebar"></div>
     </div>
   );
 }
